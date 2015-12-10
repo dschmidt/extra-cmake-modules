@@ -7,7 +7,8 @@
 # ::
 #
 #  ecm_add_app_icon(<sources_var>
-#                   ICONS <icon> [<icon> [...]])
+#                   ICONS <icon> [<icon> [...]]
+#                   [OUTFILE <name>])
 #
 # The given icons, whose names must match the pattern::
 #
@@ -66,7 +67,7 @@ include(CMakeParseArguments)
 
 function(ecm_add_app_icon appsources)
     set(options)
-    set(oneValueArgs)
+    set(oneValueArgs OUTFILE)
     set(multiValueArgs ICONS)
     cmake_parse_arguments(ARG "${options}" "${oneValueArgs}" "${multiValueArgs}" ${ARGN})
 
@@ -125,7 +126,13 @@ function(ecm_add_app_icon appsources)
         message(AUTHOR_WARNING "No icons suitable for use on Windows provided")
     endif()
 
-    set (_outfilename "${CMAKE_CURRENT_BINARY_DIR}/${appsources}")
+    if (ARG_OUTFILE)
+        set (_outfilebasename "${ARG_OUTFILE}")
+    else()
+        set (_outfilebasename "${appsources}")
+    endif()
+
+    set (_outfilename "${CMAKE_CURRENT_BINARY_DIR}/${_outfilebasename}")
 
     if (WIN32 AND windows_icons)
         set(saved_CMAKE_MODULE_PATH "${CMAKE_MODULE_PATH}")
