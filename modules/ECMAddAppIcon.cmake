@@ -223,7 +223,7 @@ function(ecm_add_app_icon appsources)
                 WORKING_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}"
             )
             # This will register the icon into the bundle
-            set(MACOSX_BUNDLE_ICON_FILE ${appsources}.icns PARENT_SCOPE)
+            set(MACOSX_BUNDLE_ICON_FILE ${_outfilebasename}.icns PARENT_SCOPE)
 
             # Append the icns file to the sources list so it will be a dependency to the
             # main target
