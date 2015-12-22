@@ -204,13 +204,10 @@ function(ecm_add_app_icon appsources)
 
             # 64x64 is not supported
             foreach(size 16 32 128 256 512)
+                math(EXPR double_size "2 * ${size}")
                 foreach(file ${icons_at_${size}px})
                     copy_icon("${file}" "${size}x${size}")
                 endforeach()
-            endforeach()
-
-            foreach(size 16 32 64 128 256 512)
-                math(EXPR double_size "2 * ${size}")
                 foreach(file ${icons_at_${double_size}px})
                     copy_icon("${file}" "${size}x${size}@2x")
                 endforeach()
